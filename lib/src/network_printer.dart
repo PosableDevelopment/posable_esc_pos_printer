@@ -1,7 +1,7 @@
 /*
  * esc_pos_printer
  * Created by Andrey Ushakov
- * 
+ *
  * Copyright (c) 2019-2020. All rights reserved.
  * See LICENSE for distribution and usage details.
  */
@@ -14,9 +14,9 @@ import './enums.dart';
 
 /// Network Printer
 class NetworkPrinter {
-  NetworkPrinter(this._paperSize, this._profile, {int spaceBetweenRows = 5}) {
+  NetworkPrinter(this._paperSize, this._profile, {int spaceBetweenRows = 5, String printerModel = "EPSON"}) {
     _generator =
-        Generator(paperSize, profile, spaceBetweenRows: spaceBetweenRows);
+        Generator(paperSize, profile, spaceBetweenRows: spaceBetweenRows, printerModel: printerModel);
   }
 
   final PaperSize _paperSize;
@@ -58,12 +58,12 @@ class NetworkPrinter {
   }
 
   void text(
-    String text, {
-    PosStyles styles = const PosStyles(),
-    int linesAfter = 0,
-    bool containsChinese = false,
-    int? maxCharsPerLine,
-  }) {
+      String text, {
+        PosStyles styles = const PosStyles(),
+        int linesAfter = 0,
+        bool containsChinese = false,
+        int? maxCharsPerLine,
+      }) {
     _socket.add(_generator.text(text,
         styles: styles,
         linesAfter: linesAfter,
@@ -121,12 +121,12 @@ class NetworkPrinter {
   }
 
   void imageRaster(
-    Image image, {
-    PosAlign align = PosAlign.center,
-    bool highDensityHorizontal = true,
-    bool highDensityVertical = true,
-    PosImageFn imageFn = PosImageFn.bitImageRaster,
-  }) {
+      Image image, {
+        PosAlign align = PosAlign.center,
+        bool highDensityHorizontal = true,
+        bool highDensityVertical = true,
+        PosImageFn imageFn = PosImageFn.bitImageRaster,
+      }) {
     _socket.add(_generator.imageRaster(
       image,
       align: align,
@@ -137,13 +137,13 @@ class NetworkPrinter {
   }
 
   void barcode(
-    Barcode barcode, {
-    int? width,
-    int? height,
-    BarcodeFont? font,
-    BarcodeText textPos = BarcodeText.below,
-    PosAlign align = PosAlign.center,
-  }) {
+      Barcode barcode, {
+        int? width,
+        int? height,
+        BarcodeFont? font,
+        BarcodeText textPos = BarcodeText.below,
+        PosAlign align = PosAlign.center,
+      }) {
     _socket.add(_generator.barcode(
       barcode,
       width: width,
@@ -155,11 +155,11 @@ class NetworkPrinter {
   }
 
   void qrcode(
-    String text, {
-    PosAlign align = PosAlign.center,
-    QRSize size = QRSize.Size4,
-    QRCorrection cor = QRCorrection.L,
-  }) {
+      String text, {
+        PosAlign align = PosAlign.center,
+        QRSize size = QRSize.Size4,
+        QRCorrection cor = QRCorrection.L,
+      }) {
     _socket.add(_generator.qrcode(text, align: align, size: size, cor: cor));
   }
 
@@ -172,11 +172,11 @@ class NetworkPrinter {
   }
 
   void textEncoded(
-    Uint8List textBytes, {
-    PosStyles styles = const PosStyles(),
-    int linesAfter = 0,
-    int? maxCharsPerLine,
-  }) {
+      Uint8List textBytes, {
+        PosStyles styles = const PosStyles(),
+        int linesAfter = 0,
+        int? maxCharsPerLine,
+      }) {
     _socket.add(_generator.textEncoded(
       textBytes,
       styles: styles,
@@ -184,5 +184,5 @@ class NetworkPrinter {
       maxCharsPerLine: maxCharsPerLine,
     ));
   }
-  // ************************ (end) Printer Commands ************************
+// ************************ (end) Printer Commands ************************
 }
